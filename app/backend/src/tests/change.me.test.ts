@@ -6,37 +6,40 @@ import { app } from '../app';
 import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
+import User from '../database/models/user';
+import userMock, { sendDataLogin } from './mock';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
+describe('Testa a rota post/login', () => {
   /**
    * Exemplo do uso de stubs com tipos
    */
 
-  // let chaiHttpResponse: Response;
+  let chaiHttpResponse: Response;
 
-  // before(async () => {
-  //   sinon
-  //     .stub(Example, "findOne")
-  //     .resolves({
-  //       ...<Seu mock>
-  //     } as Example);
-  // });
+  before(async () => {
+    sinon
+      .stub(User, "findOne")
+      .resolves(userMock as User);
+  });
 
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
+  after(()=>{
+    (User.findOne as sinon.SinonStub).restore();
+  })
 
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
-
-  //   expect(...)
-  // });
+  it('testa se o retorno da rota tem os dados corretos', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .post('/login')
+       .send(sendDataLogin)
+       
+    expect(chaiHttpResponse).to.have.status(200);
+    expect(chaiHttpResponse.body).to.be.a('object');
+    expect(chaiHttpResponse.body).to.include.all.keys('user','id','username','role','email','token');
+  });
 
   it('Seu sub-teste', () => {
     expect(false).to.be.eq(true);
