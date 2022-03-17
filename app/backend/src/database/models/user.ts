@@ -1,8 +1,17 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
+import { UserData } from '../domain/domain';
 
-export default class User extends Model {
+export default class User extends Model implements UserData {
+  id: number;
 
+  username: string;
+
+  role: string;
+
+  email: string;
+
+  password: string;
 }
 
 User.init({
