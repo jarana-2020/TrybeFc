@@ -1,4 +1,4 @@
-import { UserData } from "../database/domain/domain";
+import { MatchI, UserData } from "../database/domain/domain";
 
 const userMock: UserData = {
   id:1,
@@ -21,7 +21,7 @@ export const clubsMock = [
   {"id": 3,"clubName": "Botafogo"},
 ]
 
-export const matchsMock = [
+export const matchsMock  = [
   {
     "id": 1,
     "homeTeam": 16,
