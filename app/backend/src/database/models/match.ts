@@ -2,7 +2,17 @@ import { DataTypes, Model } from 'sequelize';
 import db from '.';
 
 export default class Match extends Model {
+  id: number;
 
+  homeTeam: number;
+
+  homeTeamGoals: number;
+
+  awayTeam: number;
+
+  awayTeamGoals: number;
+
+  inProgress: number;
 }
 
 Match.init({
@@ -11,25 +21,30 @@ Match.init({
     autoIncrement: true,
     primaryKey: true,
   },
-  home_team: {
+  homeTeam: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'home_team',
   },
-  home_team_goals: {
+  homeTeamGoals: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'home_team_goals',
   },
-  away_team: {
+  awayTeam: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'away_team',
   },
-  away_team_goals: {
+  awayTeamGoals: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'away_team_goals',
   },
-  in_progress: {
+  inProgress: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'in_progress',
   },
 }, {
   sequelize: db,

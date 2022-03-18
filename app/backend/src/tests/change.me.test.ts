@@ -8,7 +8,8 @@ import Example from '../database/models/ExampleModel';
 import { Response } from 'superagent';
 import User from '../database/models/user';
 import Club from '../database/models/club';
-import userMock, { clubsMock, roleUser, sendDataLogin } from './mock';
+import userMock, { clubsMock, matchsMock, roleUser, sendDataLogin } from './mock';
+import Match from '../database/models/match';
 
 chai.use(chaiHttp);
 
@@ -107,5 +108,35 @@ describe('Testa a rota clubs/id', () => {
     
   });
 });
+
+// describe('Testa a rota matchs', () => {
+  
+//   let chaiHttpResponse: Response;
+
+//   before(async () => {
+//     sinon
+//       .stub(Match, "findAll")
+//       .resolves(matchsMock);
+//   });
+
+//   after(()=>{
+//     (Club.findAll as sinon.SinonStub).restore();
+//   })
+
+//   it('get/clubs/id, verifica o retorno em caso de sucesso', async () => {
+//     chaiHttpResponse = await chai
+//        .request(app)
+//        .get('/clubs/1')
+//        .send()
+       
+//     expect(chaiHttpResponse).to.have.status(200);
+//     expect(chaiHttpResponse.body).to.be.a('object');
+//     expect(chaiHttpResponse.body).to.include.all.keys('id','clubName');
+//     expect(chaiHttpResponse.body).to.be.eq(clubsMock[1]);
+
+    
+//   });
+// });
+
 
 
