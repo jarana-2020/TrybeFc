@@ -1,3 +1,4 @@
+import { CreateMatchI } from '../domain/domain';
 import Club from '../models/club';
 import Match from '../models/match';
 
@@ -21,6 +22,25 @@ class ServiceMatch {
       ],
     });
     return matchs;
+  }
+
+  static async createMatch(data: CreateMatchI) {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = data;
+    const match = await Match.create({
+      homeTeam,
+      awayTeam,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress,
+    });
+    return {
+      id: match.id,
+      homeTeam,
+      homeTeamGoals,
+      awayTeam,
+      awayTeamGoals,
+      inProgress,
+    };
   }
 }
 
