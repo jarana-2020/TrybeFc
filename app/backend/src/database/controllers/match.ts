@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { CreateMatchI } from '../domain/domain';
 import ServiceMatch from '../services/matchs';
 
 class MatchController {
@@ -17,6 +18,16 @@ class MatchController {
       const status = inProgress === 'true';
       const matchs = await ServiceMatch.getByStatus(status);
       return res.status(200).json(matchs);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
+
+  static async createMatch(req: Request, res: Response) {
+    try {
+      const dataMatch = req.body as CreateMatchI;
+      const match = await ServiceMatch.createMatch(dataMatch);
+      return res.status(201).json(match);
     } catch (error) {
       return res.status(500).json(error);
     }
