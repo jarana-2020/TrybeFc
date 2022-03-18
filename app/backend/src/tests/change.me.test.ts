@@ -10,6 +10,7 @@ import User from '../database/models/user';
 import Club from '../database/models/club';
 import userMock, { clubsMock, matchsMock, roleUser, sendDataLogin } from './mock';
 import Match from '../database/models/match';
+import { MatchI } from '../database/domain/domain';
 
 chai.use(chaiHttp);
 
@@ -109,34 +110,32 @@ describe('Testa a rota clubs/id', () => {
   });
 });
 
-// describe('Testa a rota matchs', () => {
+describe('Testa a rota matchs', () => {
   
-//   let chaiHttpResponse: Response;
+  let chaiHttpResponse: Response;
 
-//   before(async () => {
-//     sinon
-//       .stub(Match, "findAll")
-//       .resolves(matchsMock);
-//   });
+  before(async () => {
+    sinon
+      .stub(Match, "findAll")
+      .resolves(matchsMock as MatchI[] );
+  });
 
-//   after(()=>{
-//     (Club.findAll as sinon.SinonStub).restore();
-//   })
+  after(()=>{
+    (Match.findAll as sinon.SinonStub).restore();
+  })
 
-//   it('get/clubs/id, verifica o retorno em caso de sucesso', async () => {
-//     chaiHttpResponse = await chai
-//        .request(app)
-//        .get('/clubs/1')
-//        .send()
+  it('get/matchs, verifica o retorno em caso de sucesso', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/matchs')
+       .send()
        
-//     expect(chaiHttpResponse).to.have.status(200);
-//     expect(chaiHttpResponse.body).to.be.a('object');
-//     expect(chaiHttpResponse.body).to.include.all.keys('id','clubName');
-//     expect(chaiHttpResponse.body).to.be.eq(clubsMock[1]);
-
+    expect(chaiHttpResponse).to.have.status(200);
+    expect(chaiHttpResponse.body).to.be.a('array');
+    expect(chaiHttpResponse.body).to.length(2);
     
-//   });
-// });
+  });
+});
 
 
 
