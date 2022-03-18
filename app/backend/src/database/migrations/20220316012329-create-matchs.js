@@ -13,6 +13,9 @@ module.exports = {
       foreignKey: true,
       type: Sequelize.INTEGER,
       allowNull: false,
+      references: {model: 'clubs', key: 'id'},
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE', 
      },
      home_team_goals: {
        type: Sequelize.INTEGER,
@@ -22,6 +25,9 @@ module.exports = {
       foreignKey: true,
       type: Sequelize.INTEGER,
       allowNull: false,
+      references: {model: 'clubs', key: 'id'},
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
      },
      away_team_goals: {
       type: Sequelize.INTEGER,
