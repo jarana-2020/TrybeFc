@@ -79,4 +79,33 @@ describe('Testa a rota clubs', () => {
   });
 });
 
+describe('Testa a rota clubs/id', () => {
+  
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(Club, "findOne")
+      .resolves(clubsMock[1] as Club);
+  });
+
+  after(()=>{
+    (Club.findAll as sinon.SinonStub).restore();
+  })
+
+  it('get/clubs/id, verifica o retorno em caso de sucesso', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/clubs/1')
+       .send()
+       
+    expect(chaiHttpResponse).to.have.status(200);
+    expect(chaiHttpResponse.body).to.be.a('object');
+    expect(chaiHttpResponse.body).to.include.all.keys('id','clubName');
+    expect(chaiHttpResponse.body).to.be.eq(clubsMock[1]);
+
+    
+  });
+});
+
 
