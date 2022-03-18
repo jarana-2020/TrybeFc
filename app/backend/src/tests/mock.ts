@@ -13,4 +13,12 @@ export const sendDataLogin = {
   token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ'
 }
 
+export const roleUser = 'admin';
+
+export const clubsMock = [
+  {"id": 1,"clubName": "Avaí/Kindermann"},
+  {"id": 2,"clubName": "Bahia"},
+  {"id": 3,"clubName": "Botafogo"},
+]
+
 export default userMock;
