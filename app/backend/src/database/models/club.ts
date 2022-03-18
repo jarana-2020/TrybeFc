@@ -3,7 +3,9 @@ import db from '.';
 import Match from './match';
 
 export default class Club extends Model {
+  id: number;
 
+  clubName: string;
 }
 Club.init({
   id: {
@@ -11,9 +13,10 @@ Club.init({
     autoIncrement: true,
     primaryKey: true,
   },
-  club_name: {
+  clubName: {
     type: DataTypes.STRING,
     allowNull: false,
+    field: 'club_name',
   },
 }, {
   underscored: true,
