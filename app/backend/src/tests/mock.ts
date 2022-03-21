@@ -1,10 +1,17 @@
 import { MatchI, UserData } from "../database/domain/domain";
 
-const userMock: UserData = {
-  id:1,
-  username: 'julio',
+const userMock = {
+  email: 'admin@admin.com',
+  password: 'secret_admin'
+}
+
+export const userData = {
+  id: 1,
+  email: 'admin@admin.com',
+  password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
   role: 'admin',
-  email: 'admin@admin.com'
+  username: 'julio'
+
 }
 
 export const sendDataLogin = {

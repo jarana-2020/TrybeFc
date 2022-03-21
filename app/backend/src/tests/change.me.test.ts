@@ -8,7 +8,7 @@ import Example from '../database/models/ExampleModel';
 import { Response } from 'superagent';
 import User from '../database/models/user';
 import Club from '../database/models/club';
-import userMock, { clubsMock, createdMatch, matchsIsInProgressMock, matchsMock, roleUser, sendDataLogin } from './mock';
+import userMock, { clubsMock, createdMatch, matchsIsInProgressMock, matchsMock, roleUser, sendDataLogin, userData } from './mock';
 import Match from '../database/models/match';
 import { CreateMatchI, MatchI } from '../database/domain/domain';
 
@@ -23,7 +23,7 @@ describe('Testa a rota login', () => {
   before(async () => {
     sinon
       .stub(User, "findOne")
-      .resolves(userMock as User);
+      .resolves(userData as User);
   });
 
   after(()=>{
@@ -38,18 +38,21 @@ describe('Testa a rota login', () => {
        
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.be.a('object');
-    expect(chaiHttpResponse.body).to.include.all.keys('user','id','username','role','email','token');
+    expect(chaiHttpResponse.body).to.include.all.keys('user', 'token');
+    expect(chaiHttpResponse.body.user).to.include.all.keys('id','username','role','email');
   });
 
   it('get/login/validate, verifica o retorno em caso de sucesso', async () => {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY0NzUyMjM5OX0.aGy8TNLLJSHcT3z5ZW0R5898QKlnjyH6m28RRU7-3nY'
     chaiHttpResponse = await chai
        .request(app)
        .get('/login/validate')
-       .send(roleUser)
+       .set({'Authorization': token})
+       .send()
        
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.be.a('string');
-    expect(chaiHttpResponse.body).to.be.eq('admin');
+    expect(chaiHttpResponse.body).to.be.equal('admin');
   });
 });
 
@@ -151,11 +154,11 @@ describe('Testa a rota matchs/?inProgress', () => {
     (Match.findAll as sinon.SinonStub).restore();
   })
 
-  it('get/matchs, verifica o retorno em caso de sucesso', async () => {
+  it('get/matchs/?inProgress=true, verifica se retorna as partidas em andamento', async () => {
     chaiHttpResponse = await chai
        .request(app)
-       .get('/matchs/matchs')
-       .send(matchsIsInProgressMock)
+       .get('/matchs?inProgress=true')
+       .send()
        
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.be.a('array');
@@ -180,9 +183,11 @@ describe('Testa a rota post/matchs', () => {
   })
 
   it('post/matchs, verifica o retorno em caso de sucesso', async () => {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY0NzUyMjM5OX0.aGy8TNLLJSHcT3z5ZW0R5898QKlnjyH6m28RRU7-3nY'
     chaiHttpResponse = await chai
        .request(app)
        .post('/matchs')
+       .set({'Authorization': token})
        .send(createdMatch)
        
     expect(chaiHttpResponse).to.have.status(201);
