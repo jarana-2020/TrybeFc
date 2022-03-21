@@ -46,10 +46,18 @@ class ServiceMatch {
     return { id: match.id, homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress };
   }
 
-  static async updateById(id: number) {
+  static async updateStatus(id: number) {
     const result = await Match.update({ inProgress: false }, {
       where: { id },
     });
+    return result;
+  }
+
+  static async updateMatchGoals(id: number, homeGoals: number, awayGoals: number) {
+    const result = await Match
+      .update({ homeTeamGoals: homeGoals, awayTeamGoals: awayGoals }, {
+        where: { id },
+      });
     return result;
   }
 }
