@@ -8,10 +8,8 @@ class LoginService {
       where: { email },
     });
     const user = result as User;
+
     const match = bcrypt.compareSync(password, user.password);
-    console.log('bcrypt', match);
-    console.log('result', result);
-    console.log('senhas', user.password, password);
 
     const message: ErrorMessage = { message: 'Incorrect email or password' };
     if (!result || !match) return message;
