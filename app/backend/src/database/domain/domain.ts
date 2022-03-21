@@ -37,3 +37,7 @@ export interface CreateMatchI extends Model{
   awayTeamGoals: number;
   inProgress: boolean;
 }
+
+export type MatchMessage = {
+  message: string
+};

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { CreateMatchI } from '../domain/domain';
+import { CreateMatchI, MatchMessage } from '../domain/domain';
 import ServiceMatch from '../services/matchs';
 
 class MatchController {
@@ -27,6 +27,8 @@ class MatchController {
     try {
       const dataMatch = req.body as CreateMatchI;
       const match = await ServiceMatch.createMatch(dataMatch);
+      const matchMessage = match as MatchMessage;
+      if (matchMessage.message) return res.status(401).json(matchMessage);
       return res.status(201).json(match);
     } catch (error) {
       return res.status(500).json(error);
