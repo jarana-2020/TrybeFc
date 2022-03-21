@@ -8,9 +8,9 @@ import Example from '../database/models/ExampleModel';
 import { Response } from 'superagent';
 import User from '../database/models/user';
 import Club from '../database/models/club';
-import userMock, { clubsMock, matchsMock, roleUser, sendDataLogin } from './mock';
+import userMock, { clubsMock, createdMatch, matchsIsInProgressMock, matchsMock, roleUser, sendDataLogin } from './mock';
 import Match from '../database/models/match';
-import { MatchI } from '../database/domain/domain';
+import { CreateMatchI, MatchI } from '../database/domain/domain';
 
 chai.use(chaiHttp);
 
@@ -34,7 +34,7 @@ describe('Testa a rota login', () => {
     chaiHttpResponse = await chai
        .request(app)
        .post('/login')
-       .send(sendDataLogin)
+       .send(userMock)
        
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.be.a('object');
@@ -71,7 +71,7 @@ describe('Testa a rota clubs', () => {
     chaiHttpResponse = await chai
        .request(app)
        .get('/clubs')
-       .send()
+       .send(clubsMock)
        
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.be.a('array');
@@ -92,19 +92,19 @@ describe('Testa a rota clubs/id', () => {
   });
 
   after(()=>{
-    (Club.findAll as sinon.SinonStub).restore();
+    (Club.findOne as sinon.SinonStub).restore();
   })
 
   it('get/clubs/id, verifica o retorno em caso de sucesso', async () => {
     chaiHttpResponse = await chai
        .request(app)
-       .get('/clubs/1')
-       .send()
+       .get('/clubs/:id')
+       .send(clubsMock[1])
        
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.be.a('object');
     expect(chaiHttpResponse.body).to.include.all.keys('id','clubName');
-    expect(chaiHttpResponse.body).to.be.eq(clubsMock[1]);
+    expect(chaiHttpResponse.body).to.deep.equal(clubsMock[1]);
 
     
   });
@@ -128,7 +128,7 @@ describe('Testa a rota matchs', () => {
     chaiHttpResponse = await chai
        .request(app)
        .get('/matchs')
-       .send()
+       .send(matchsMock)
        
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.be.a('array');
@@ -136,6 +136,63 @@ describe('Testa a rota matchs', () => {
     
   });
 });
+
+describe('Testa a rota matchs/?inProgress', () => {
+  
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(Match, "findAll")
+      .resolves(matchsIsInProgressMock as MatchI[] );
+  });
+
+  after(()=>{
+    (Match.findAll as sinon.SinonStub).restore();
+  })
+
+  it('get/matchs, verifica o retorno em caso de sucesso', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/matchs/matchs')
+       .send(matchsIsInProgressMock)
+       
+    expect(chaiHttpResponse).to.have.status(200);
+    expect(chaiHttpResponse.body).to.be.a('array');
+    expect(chaiHttpResponse.body).to.length(2);
+    expect(chaiHttpResponse.body).to.deep.equal(matchsIsInProgressMock);
+    
+  });
+});
+
+describe('Testa a rota post/matchs', () => {
+  
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(Match, "create")
+      .resolves(createdMatch as CreateMatchI);
+  });
+
+  after(()=>{
+    (Match.create as sinon.SinonStub).restore();
+  })
+
+  it('post/matchs, verifica o retorno em caso de sucesso', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .post('/matchs')
+       .send(createdMatch)
+       
+    expect(chaiHttpResponse).to.have.status(201);
+    expect(chaiHttpResponse.body).to.be.a('object');
+    expect(chaiHttpResponse.body).to.deep.equal(createdMatch);
+    
+  });
+});
+
+
 
 
 

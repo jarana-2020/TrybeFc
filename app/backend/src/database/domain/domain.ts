@@ -9,7 +9,6 @@ export interface UserData extends UserRequest {
   username: string,
   role: string,
   id: number,
-  password: string,
 }
 
 export type ErrorMessage = {
@@ -26,12 +25,12 @@ export interface PersonalRequest extends Request {
 }
 
 export interface MatchI extends Model, CreateMatchI {
-  id: number;
   homeClub: { clubName: string },
   awayClub: { clubName: string }
 }
 
-export interface CreateMatchI {
+export interface CreateMatchI extends Model{
+  id: number;
   homeTeam: number;
   awayTeam: number;
   homeTeamGoals: number;
