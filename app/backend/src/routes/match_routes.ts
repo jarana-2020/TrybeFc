@@ -8,7 +8,6 @@ const matchRouter = express.Router();
 matchRouter
   .patch('/:id', MatchController.updateMatchGoals)
   .patch('/:id/finish', MatchController.updateStatus)
-  .get('/matchs', MatchController.getByStatus)
   .get('/', MatchController.getAll)
   .use(validateToken)
   .use(validateMatch)

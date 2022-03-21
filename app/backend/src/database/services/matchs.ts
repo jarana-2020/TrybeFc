@@ -4,24 +4,21 @@ import Match from '../models/match';
 import ClubService from './club';
 
 class ServiceMatch {
-  static async getAll() {
-    const matchs = await Match.findAll({
-      include: [
-        { model: Club, as: 'homeClub', attributes: ['clubName'] },
-        { model: Club, as: 'awayClub', attributes: ['clubName'] },
-      ],
-    });
-    return matchs;
-  }
-
-  static async getByStatus(status: boolean) {
-    const matchs = await Match.findAll({
-      where: { inProgress: status },
-      include: [
-        { model: Club, as: 'homeClub', attributes: ['clubName'] },
-        { model: Club, as: 'awayClub', attributes: ['clubName'] },
-      ],
-    });
+  static async getAll(status?: boolean) {
+    const matchs = status === undefined
+      ? await Match.findAll({
+        include: [
+          { model: Club, as: 'homeClub', attributes: ['clubName'] },
+          { model: Club, as: 'awayClub', attributes: ['clubName'] },
+        ],
+      })
+      : await Match.findAll({
+        where: { inProgress: status },
+        include: [
+          { model: Club, as: 'homeClub', attributes: ['clubName'] },
+          { model: Club, as: 'awayClub', attributes: ['clubName'] },
+        ],
+      });
     return matchs;
   }
 
