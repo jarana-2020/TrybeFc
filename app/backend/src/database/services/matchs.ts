@@ -42,6 +42,13 @@ class ServiceMatch {
       inProgress,
     };
   }
+
+  static async updateById(id: number) {
+    const result = await Match.update({ inProgress: false }, {
+      where: { id },
+    });
+    return result;
+  }
 }
 
 export default ServiceMatch;
