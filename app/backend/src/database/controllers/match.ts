@@ -35,10 +35,22 @@ class MatchController {
     }
   }
 
-  static async updateById(req: Request, res: Response) {
+  static async updateStatus(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const result = await ServiceMatch.updateById(Number(id));
+      const result = await ServiceMatch.updateStatus(Number(id));
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
+
+  static async updateMatchGoals(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { homeTeamGoals, awayTeamGoals } = req.body;
+      const result = await ServiceMatch
+        .updateMatchGoals(Number(id), Number(homeTeamGoals), Number(awayTeamGoals));
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json(error);
