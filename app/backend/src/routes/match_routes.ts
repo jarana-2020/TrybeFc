@@ -6,6 +6,7 @@ import validateMatch from '../database/middlewares/validateMatch';
 const matchRouter = express.Router();
 
 matchRouter
+  .patch('/:id/finish', MatchController.updateById)
   .get('/matchs', MatchController.getByStatus)
   .get('/', MatchController.getAll)
   .use(validateToken)
