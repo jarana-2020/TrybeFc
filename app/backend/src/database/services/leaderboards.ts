@@ -3,7 +3,7 @@ import Club from '../models/club';
 import Match from '../models/match';
 
 class ServiceLeaderboard {
-  static calcPoints(data: LeaderBoardMatchs) {
+  static getPoints(data: LeaderBoardMatchs) {
     let points = 0;
     let totalVictories = 0;
     const totalGames = data.homeClub?.filter((game) => game.inProgress === false).length;
@@ -63,7 +63,7 @@ class ServiceLeaderboard {
   static getClubsPoints(dataClubs: Club[]) {
     const result = dataClubs.map((club) => {
       const data = club as LeaderBoardMatchs;
-      const getPoints = ServiceLeaderboard.calcPoints(data);
+      const getPoints = ServiceLeaderboard.getPoints(data);
       const drawsAndLosers = ServiceLeaderboard.getDrawsAndLoses(data);
       const goals = ServiceLeaderboard.getGoals(data);
       const clubsHome = getPoints as PointsMatchI;
@@ -82,7 +82,7 @@ class ServiceLeaderboard {
     return result;
   }
 
-  static async getAllClubsAndMatchs() {
+  static async getClassification() {
     const result = await Club.findAll({
       include: [
         { model: Match, as: 'homeClub' },
