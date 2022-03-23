@@ -257,14 +257,11 @@ describe('Testa a rota patch/matchs/:id', () => {
   });
 });
 
-describe('Testa a rota /leaderboard/home', () => {
+describe.only('Testa a rota /leaderboard/home', () => {
   
   let chaiHttpResponse: Response;
 
   before(async () => {
-    sinon
-      .stub(ServiceLeaderboard,'getClubsPoints')
-      .returns(classification);
     sinon
       .stub(Club, "findAll")
       .resolves(clubsData as LeaderBoardI[]);
@@ -272,7 +269,6 @@ describe('Testa a rota /leaderboard/home', () => {
 
   after(()=>{
     (Club.findAll as sinon.SinonStub).restore();
-    (ServiceLeaderboard.getClubsPoints as sinon.SinonStub).restore();
   })
 
   it('verifica o retorno em caso de sucesso', async () => {
