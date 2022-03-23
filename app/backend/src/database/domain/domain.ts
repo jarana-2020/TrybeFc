@@ -30,14 +30,16 @@ export interface MatchI extends CreateMatchI {
 export interface LeaderBoardI extends Model{
   id: number;
   clubName: string;
-  homeClub: {
-    id: number;
-    homeTeam: number;
-    awayTeam: number;
-    homeTeamGoals: number;
-    awayTeamGoals: number;
-    inProgress: boolean;
-  }
+  homeClub: [
+    {
+      id: number;
+      homeTeam: number;
+      awayTeam: number;
+      homeTeamGoals: number;
+      awayTeamGoals: number;
+      inProgress: boolean;
+    },
+  ]
 
 }
 

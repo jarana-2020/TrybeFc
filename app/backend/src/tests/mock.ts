@@ -109,38 +109,45 @@ export const clubsData = [
   {
     id: 1, 
     clubName: 'Avai',
-    homeClub: {
-      id: 1,
-      homeTeam: 1,
-      homeTeamGoals: 2,
-      awayTeam: 2,
-      awayTeamGoals: 3,
-      inProgress: false
-    },
+    homeClub: [
+      {
+        id: 1,
+        homeTeam: 1,
+        homeTeamGoals: 2,
+        awayTeam: 2,
+        awayTeamGoals: 3,
+        inProgress: false
+      },
+    ]
   },
   {
     id: 2, 
     clubName: 'Palmeiras',
-    homeClub: {
-      id: 2,
-      homeTeam: 2,
-      homeTeamGoals: 4,
-      awayTeam: 3,
-      awayTeamGoals: 3,
-      inProgress: false
-    },
+    homeClub: [
+      {
+        id: 2,
+        homeTeam: 2,
+        homeTeamGoals: 4,
+        awayTeam: 3,
+        awayTeamGoals: 3,
+        inProgress: false
+      },
+    ]
+    
   },
   {
     id: 3, 
     clubName: 'Santos',
-    homeClub: {
-      id: 3,
-      homeTeam: 3,
-      homeTeamGoals: 1,
-      awayTeam: 1,
-      awayTeamGoals: 0,
-      inProgress: false
-    },
+    homeClub:[
+      {
+        id: 3,
+        homeTeam: 3,
+        homeTeamGoals: 1,
+        awayTeam: 1,
+        awayTeamGoals: 0,
+        inProgress: false
+      },
+    ]  
   },
     
 ]
