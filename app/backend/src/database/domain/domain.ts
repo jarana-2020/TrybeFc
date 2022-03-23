@@ -22,9 +22,23 @@ export interface PersonalRequest extends Request {
   email?: string;
 }
 
-export interface MatchI extends Model, CreateMatchI {
+export interface MatchI extends CreateMatchI {
   homeClub: { clubName: string },
   awayClub: { clubName: string }
+}
+
+export interface LeaderBoardI extends Model{
+  id: number;
+  clubName: string;
+  homeClub: {
+    id: number;
+    homeTeam: number;
+    awayTeam: number;
+    homeTeamGoals: number;
+    awayTeamGoals: number;
+    inProgress: boolean;
+  }
+
 }
 
 export interface CreateMatchI extends Model{
@@ -43,16 +57,9 @@ export type MatchMessage = {
 export interface LeaderBoardMatchs {
   id: number;
   clubName: string;
-  homeClub?: [
-    {
-      id: number;
-      homeTeam: number;
-      homeTeamGoals: number;
-      awayTeam: number;
-      awayTeamGoals: number;
-      inProgress: boolean;
-    },
-  ]
+  homeClub?: CreateMatchI[];
+  awayClub?: CreateMatchI[];
+
 }
 
 export interface PointsMatchI {
@@ -73,3 +80,5 @@ export interface GoalsLeaderBoardI {
   goalsOwn: number;
   goalsBalance: number;
 }
+
+export type TypeClub = 'away' | 'home';

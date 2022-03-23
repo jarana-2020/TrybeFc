@@ -8,9 +8,13 @@ import Example from '../database/models/ExampleModel';
 import { Response } from 'superagent';
 import User from '../database/models/user';
 import Club from '../database/models/club';
-import userMock, { clubsMock, createdMatch, matchsIsInProgressMock, matchsMock, roleUser, sendDataLogin, userData } from './mock';
+import userMock, { classification, clubsData, clubsMock, createdMatch, matchGoals, matchsIsInProgressMock, matchsMock, roleUser, sendDataLogin, userData } from './mock';
 import Match from '../database/models/match';
-import { CreateMatchI, MatchI } from '../database/domain/domain';
+import { CreateMatchI, LeaderBoardI, MatchI } from '../database/domain/domain';
+import { Model } from 'sequelize/types';
+import userInfo from './mock';
+import ServiceLeaderboard from '../database/services/leaderboardsHome';
+
 
 chai.use(chaiHttp);
 
@@ -34,7 +38,7 @@ describe('Testa a rota login', () => {
     chaiHttpResponse = await chai
        .request(app)
        .post('/login')
-       .send(userMock)
+       .send(userInfo)
        
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.be.a('object');
@@ -193,6 +197,97 @@ describe('Testa a rota post/matchs', () => {
     expect(chaiHttpResponse).to.have.status(201);
     expect(chaiHttpResponse.body).to.be.a('object');
     expect(chaiHttpResponse.body).to.deep.equal(createdMatch);
+    
+  });
+});
+
+describe('Testa a rota patch/matchs/:id/finish', () => {
+  
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(Match, "update")
+      .resolves([1] as any);
+  });
+
+  after(()=>{
+    (Match.update as sinon.SinonStub).restore();
+  })
+
+  it('verifica o retorno em caso de sucesso', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .patch('/matchs/41/finish')
+       .send()
+       
+    expect(chaiHttpResponse).to.have.status(200);
+    expect(chaiHttpResponse.body).to.be.an('array');
+    expect(chaiHttpResponse.body).to.have.lengthOf(1);
+    expect(chaiHttpResponse.body[0]).to.be.eq(1);
+    
+  });
+});
+
+describe('Testa a rota patch/matchs/:id', () => {
+  
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(Match, "update")
+      .resolves([1] as any);
+  });
+
+  after(()=>{
+    (Match.update as sinon.SinonStub).restore();
+  })
+
+  it('verifica o retorno em caso de sucesso', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .patch('/matchs/41')
+       .send(matchGoals)
+       
+    expect(chaiHttpResponse).to.have.status(200);
+    expect(chaiHttpResponse.body).to.be.an('array');
+    expect(chaiHttpResponse.body).to.have.lengthOf(1);
+    expect(chaiHttpResponse.body[0]).to.be.eq(1);
+    
+  });
+});
+
+describe('Testa a rota /leaderboard/home', () => {
+  
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(ServiceLeaderboard,'getClubsPoints')
+      .returns(classification);
+    sinon
+      .stub(Club, "findAll")
+      .resolves(clubsData as LeaderBoardI[]);
+  });
+
+  after(()=>{
+    (Club.findAll as sinon.SinonStub).restore();
+    (ServiceLeaderboard.getClubsPoints as sinon.SinonStub).restore();
+  })
+
+  it('verifica o retorno em caso de sucesso', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/leaderboard/home')
+       
+    expect(chaiHttpResponse).to.have.status(200);
+    expect(chaiHttpResponse.body).to.be.an('array');
+    expect(chaiHttpResponse.body).to.have.lengthOf(3);
+    expect(chaiHttpResponse.body[0]).to.be.an('object');
+    expect(chaiHttpResponse.body[1]).to.be.an('object');
+    expect(chaiHttpResponse.body[2]).to.be.an('object');
+    expect(chaiHttpResponse.body[0]).to.have.all.keys('name','totalPoints','totalGames',
+      'totalVictories','totalDraws','totalLosses','goalsFavor','goalsOwn','goalsBalance','efficiency');
     
   });
 });
