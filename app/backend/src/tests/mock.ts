@@ -152,7 +152,54 @@ export const clubsData = [
     
 ]
 
-export const classification = [
+export const clubsDataAway = [
+  {
+    id: 1, 
+    clubName: 'Avai',
+    awayClub: [
+      {
+        id: 1,
+        homeTeam: 1,
+        homeTeamGoals: 2,
+        awayTeam: 2,
+        awayTeamGoals: 3,
+        inProgress: false
+      },
+    ]
+  },
+  {
+    id: 2, 
+    clubName: 'Palmeiras',
+    awayClub: [
+      {
+        id: 2,
+        homeTeam: 2,
+        homeTeamGoals: 4,
+        awayTeam: 3,
+        awayTeamGoals: 3,
+        inProgress: false
+      },
+    ]
+    
+  },
+  {
+    id: 3, 
+    clubName: 'Santos',
+    awayClub:[
+      {
+        id: 3,
+        homeTeam: 3,
+        homeTeamGoals: 1,
+        awayTeam: 1,
+        awayTeamGoals: 0,
+        inProgress: false
+      },
+    ]  
+  },
+    
+]
+
+export const classificationHome = [
   {
     "name": "Palmeiras",
     "totalPoints": 13,
@@ -188,6 +235,45 @@ export const classification = [
     "goalsOwn": 6,
     "goalsBalance": 6,
     "efficiency": 73.33
+  },
+]
+
+export const classificationAway = [
+  {
+    "name": "Santos",
+    "totalPoints": 6,
+    "totalGames": 2,
+    "totalVictories": 2,
+    "totalDraws": 0,
+    "totalLosses": 0,
+    "goalsFavor": 4,
+    "goalsOwn": 1,
+    "goalsBalance": 3,
+    "efficiency": 100
+  },
+  {
+    "name": "Palmeiras",
+    "totalPoints": 3,
+    "totalGames": 2,
+    "totalVictories": 1,
+    "totalDraws": 0,
+    "totalLosses": 1,
+    "goalsFavor": 2,
+    "goalsOwn": 1,
+    "goalsBalance": 1,
+    "efficiency": 50
+  },
+  {
+    "name": "Avai",
+    "totalPoints": 0,
+    "totalGames": 2,
+    "totalVictories": 0,
+    "totalDraws": 0,
+    "totalLosses": 2,
+    "goalsFavor": 0,
+    "goalsOwn": -3,
+    "goalsBalance": -3,
+    "efficiency": 0
   },
 ]
 
