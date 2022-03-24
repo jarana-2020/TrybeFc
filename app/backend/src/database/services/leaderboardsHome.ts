@@ -90,10 +90,10 @@ class ServiceLeaderboard {
   }
 
   static sortClassification(clubs: ClassificationI[]) {
-    clubs.sort((clubA, clubB) => clubB.goalsOwn - clubA.goalsOwn);
-    clubs.sort((clubA, clubB) => clubB.goalsFavor - clubA.goalsFavor);
-    clubs.sort((clubA, clubB) => clubB.goalsBalance - clubA.goalsBalance);
-    clubs.sort((clubA, clubB) => clubB.totalPoints - clubA.totalPoints);
+    clubs.sort((clubA, clubB) => clubB.goalsOwn - clubA.goalsOwn)
+      .sort((clubA, clubB) => clubB.goalsFavor - clubA.goalsFavor)
+      .sort((clubA, clubB) => clubB.goalsBalance - clubA.goalsBalance)
+      .sort((clubA, clubB) => clubB.totalPoints - clubA.totalPoints);
 
     return clubs;
   }
