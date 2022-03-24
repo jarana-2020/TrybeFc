@@ -78,7 +78,6 @@ describe('Testa a rota clubs', () => {
     chaiHttpResponse = await chai
        .request(app)
        .get('/clubs')
-       .send(clubsMock)
        
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.be.a('array');
@@ -257,7 +256,7 @@ describe('Testa a rota patch/matchs/:id', () => {
   });
 });
 
-describe.only('Testa a rota /leaderboard/home', () => {
+describe('Testa a rota /leaderboard/home', () => {
   
   let chaiHttpResponse: Response;
 
