@@ -64,23 +64,17 @@ export interface LeaderBoardMatchs {
 
 }
 
-export interface PointsMatchI {
-  totalPoints: number;
-  totalGames: number;
-  totalVictories: number;
-}
-
 export interface ClassificationI {
-  name: string;
+  name?: string;
   totalDraws: number;
   totalLosses: number;
   efficiency: number;
-}
-
-export interface GoalsLeaderBoardI {
   goalsFavor: number;
   goalsOwn: number;
   goalsBalance: number;
+  totalPoints: number;
+  totalGames: number;
+  totalVictories: number;
 }
 
 export type TypeClub = 'away' | 'home';
