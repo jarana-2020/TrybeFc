@@ -263,18 +263,6 @@ export const classificationAway = [
     "goalsBalance": 1,
     "efficiency": 50
   },
-  {
-    "name": "Avai",
-    "totalPoints": 0,
-    "totalGames": 2,
-    "totalVictories": 0,
-    "totalDraws": 0,
-    "totalLosses": 2,
-    "goalsFavor": 0,
-    "goalsOwn": -3,
-    "goalsBalance": -3,
-    "efficiency": 0
-  },
 ]
 
 export default userInfo;
