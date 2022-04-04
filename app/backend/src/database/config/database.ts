@@ -6,9 +6,11 @@ module.exports = {
   database: process.env.DB_NAME || 'TRYBE_FUTEBOL_CLUBE',
   host: process.env.DB_HOST || 'localhost',
   port: process.env.DB_PORT || '3002',
-  dialect: 'mysql',
+  dialect: 'postgres',
   dialectOptions: {
-    timezone: 'Z',
+    ssl: {
+      require: false,
+      rejectUnauthorized: false,
+    },
   },
-  logging: false,
 };
