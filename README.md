@@ -12,7 +12,18 @@ Nesse projeto, você foi construido **um back-end dockerizado utilizando modelag
  - Criar e associar tabelas usando `models` do `sequelize`;
  - Construir uma **API REST** com endpoints para consumir os models criados;
  - Fazer um `CRUD` utilizando `ORM`;
+ 
+ 
+## Testar Aplicação
+Segue abaixo os links do back-end cujo foi desenvovido por mim, e tambem o link do front-end para um teste visual de maneira mais rápida, mas o teste
+do back-end pode ser feito tambem utilizando o postman, insomnia ou outra ferramenta de sua preferencia.
 
+Obs: O front-end foi desenvolvido pela equipe da trybe, o desafio do projeto consistia em desenvolver o back-end apenas.
+
+email e senha para login na aplicação: admin@admin.com, secret_admin.
+
+Front-End: https://trybefc-front-001.herokuapp.com/
+Back-End: https://trybefc-001.herokuapp.com/
 
 ## O que foi desenvolvido
 
